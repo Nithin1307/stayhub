@@ -33,7 +33,7 @@ function Rooms() {
             return;
         }
         try {
-            const response = await axios.get("http://localhost:5000/hotel");
+            const response = await axios.get(`${import.meta.env.VITE_API_URL}/hotel`);
             const selectedHotel = response.data.find(
                 (item) => item.id === Number(hotelId)
             );
