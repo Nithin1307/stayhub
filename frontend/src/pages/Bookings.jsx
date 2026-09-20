@@ -8,7 +8,7 @@ function Bookings() {
     const getBookings = async () => {
         try {
             const response = await axios.get(
-                "http://localhost:5000/booking",
+                `${import.meta.env.VITE_API_URL}/booking`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`
@@ -27,7 +27,7 @@ function Bookings() {
     useEffect(() => {
         getBookings();
     }, []);
-    
+
     const getNights = (checkIn, checkOut) => {
         const start = new Date(checkIn);
         const end = new Date(checkOut);
@@ -41,7 +41,7 @@ function Bookings() {
         }
         try {
             await axios.put(
-                `http://localhost:5000/booking/${id}/cancel`,
+                `${import.meta.env.VITE_API_URL}/booking/${id}/cancel`,
                 {},
                 {
                     headers: {
@@ -59,7 +59,7 @@ function Bookings() {
     const downloadInvoice = async (id) => {
         try {
             const response = await axios.get(
-                `http://localhost:5000/invoice/${id}`,
+                `${import.meta.env.VITE_API_URL}/invoice/${id}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`

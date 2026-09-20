@@ -8,7 +8,7 @@ function Profile() {
     const getProfile = async () => {
         try {
             const response = await axios.get(
-                "http://localhost:5000/user/profile",
+                `${import.meta.env.VITE_API_URL}/user/profile`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`

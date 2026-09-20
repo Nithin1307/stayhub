@@ -15,7 +15,7 @@ function Rooms() {
     const [status, setStatus] = useState("");
     const getRooms = async () => {
         try {
-            let url = "http://localhost:5000/room";
+            let url = `${import.meta.env.VITE_API_URL}/room`;
 
             if (hotelId) {
                 url += `?hotel=${hotelId}`;

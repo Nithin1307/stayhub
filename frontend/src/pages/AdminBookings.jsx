@@ -8,7 +8,7 @@ function AdminBookings() {
     const getBookings = async () => {
         try {
             const response = await axios.get(
-                "http://localhost:5000/booking/all",
+                `${import.meta.env.VITE_API_URL}/booking/all`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`

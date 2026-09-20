@@ -24,7 +24,7 @@ function Booking() {
     }, [id]);
     const getRoom = async () => {
         try {
-            const response = await axios.get(`http://localhost:5000/room/${id}`);
+            const response = await axios.get(`${import.meta.env.VITE_API_URL}/room/${id}`);
             setRoom(response.data);
         } catch (error) {
             console.log(error);
@@ -76,7 +76,7 @@ function Booking() {
         try {
             setPaymentLoading(true);
             const availabilityResponse = await axios.get(
-                `http://localhost:5000/booking/availability?room_id=${room.id}&check_in=${checkIn}&check_out=${checkOut}`
+                `${import.meta.env.VITE_API_URL}/booking/availability?room_id=${room.id}&check_in=${checkIn}&check_out=${checkOut}`
             );
             if (!availabilityResponse.data.available) {
                 alert(
@@ -87,7 +87,7 @@ function Booking() {
                 return;
             }
             const orderResponse = await axios.post(
-                "http://localhost:5000/payment/create-order",
+                `${import.meta.env.VITE_API_URL}/payment/create-order`,
                 { amount: totalPrice },
                 {
                     headers: {
@@ -111,7 +111,7 @@ function Booking() {
                 handler: async function (response) {
                     try {
                         const verifyResponse = await axios.post(
-                            "http://localhost:5000/payment/verify",
+                            `${import.meta.env.VITE_API_URL}/payment/verify`,
                             {
                                 razorpay_order_id: response.razorpay_order_id,
                                 razorpay_payment_id: response.razorpay_payment_id,

@@ -10,7 +10,7 @@ function RoomDetails() {
     const [loading, setLoading] = useState(true);
     const getRoom = async () => {
         try {
-            const response = await axios.get(`http://localhost:5000/room/${id}`);
+            const response = await axios.get(`${import.meta.env.VITE_API_URL}/room/${id}`);
             setRoom(response.data);
 
             if (response.data.images?.length > 0) {

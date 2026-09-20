@@ -4,54 +4,44 @@ import axios from "axios";
 function Admin() {
     const token = localStorage.getItem("token");
     const role = localStorage.getItem("role");
-
     const [hotel, setHotel] = useState(null);
     const [rooms, setRooms] = useState([]);
     const [staff, setStaff] = useState([]);
-
     const [dashboard, setDashboard] = useState({
         rooms: 0,
         bookings: 0,
         activeBookings: 0,
         revenue: 0
     });
-
     const [hotelName, setHotelName] = useState("");
     const [hotelLocation, setHotelLocation] = useState("");
     const [hotelDescription, setHotelDescription] = useState("");
     const [hotelImage, setHotelImage] = useState(null);
-
     const [roomNo, setRoomNo] = useState("");
     const [type, setType] = useState("");
     const [price, setPrice] = useState("");
     const [status, setStatus] = useState("available");
     const [image, setImage] = useState([]);
-
     const [editingRoom, setEditingRoom] = useState(null);
-
     const [staffName, setStaffName] = useState("");
     const [staffEmail, setStaffEmail] = useState("");
     const [staffPassword, setStaffPassword] = useState("");
-
     const [customerEmail, setCustomerEmail] = useState("");
     const [bookingRoom, setBookingRoom] = useState("");
     const [checkIn, setCheckIn] = useState("");
     const [checkOut, setCheckOut] = useState("");
     const [paymentStatus, setPaymentStatus] = useState("pending");
-
     const [loading, setLoading] = useState(true);
-
     const getHotel = async () => {
         try {
             const response = await axios.get(
-                "http://localhost:5000/hotel/my",
+                `${import.meta.env.VITE_API_URL}/hotel/my`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 }
             );
-
             if (response.data) {
                 setHotel(response.data);
                 setHotelName(response.data.name || "");
@@ -62,28 +52,25 @@ function Admin() {
             console.log(error);
         }
     };
-
     const getRooms = async () => {
         try {
             const response = await axios.get(
-                "http://localhost:5000/room/my",
+                `${import.meta.env.VITE_API_URL}/room/my`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 }
             );
-
             setRooms(response.data);
         } catch (error) {
             console.log(error);
         }
     };
-
     const getDashboard = async () => {
         try {
             const response = await axios.get(
-                "http://localhost:5000/dashboard",
+                `${import.meta.env.VITE_API_URL}/dashboard`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`
@@ -96,31 +83,26 @@ function Admin() {
             console.log(error);
         }
     };
-
     const getStaff = async () => {
         if (role !== "hotel_admin") {
             return;
         }
-
         try {
             const response = await axios.get(
-                "http://localhost:5000/staff",
+                `${import.meta.env.VITE_API_URL}/staff`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 }
             );
-
             setStaff(response.data);
         } catch (error) {
             console.log(error);
         }
     };
-
     const loadAdminData = async () => {
         setLoading(true);
-
         await Promise.all([
             getHotel(),
             getRooms(),
@@ -150,7 +132,7 @@ function Admin() {
             }
 
             await axios.post(
-                "http://localhost:5000/hotel",
+                `${import.meta.env.VITE_API_URL}/hotel`,
                 formData,
                 {
                     headers: {
@@ -188,7 +170,7 @@ function Admin() {
             }
 
             await axios.put(
-                `http://localhost:5000/hotel/${hotel.id}`,
+                `${import.meta.env.VITE_API_URL}/hotel/${hotel.id}`,
                 formData,
                 {
                     headers: {
@@ -217,7 +199,7 @@ function Admin() {
         try {
             if (editingRoom) {
                 await axios.put(
-                    `http://localhost:5000/room/${editingRoom.id}`,
+                    `${import.meta.env.VITE_API_URL}/room/${editingRoom.id}`,
                     {
                         room_no: roomNo,
                         type: type,
@@ -246,7 +228,7 @@ function Admin() {
                 }
 
                 await axios.post(
-                    "http://localhost:5000/room",
+                    `${import.meta.env.VITE_API_URL}/room`,
                     formData,
                     {
                         headers: {
@@ -295,7 +277,7 @@ function Admin() {
 
         try {
             await axios.delete(
-                `http://localhost:5000/room/${id}`,
+                `${import.meta.env.VITE_API_URL}/room/${id}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`
@@ -329,7 +311,7 @@ function Admin() {
 
         try {
             await axios.post(
-                "http://localhost:5000/staff/receptionist",
+                `${import.meta.env.VITE_API_URL}/staff/receptionist`,
                 {
                     name: staffName,
                     email: staffEmail,
@@ -370,7 +352,7 @@ function Admin() {
 
         try {
             await axios.delete(
-                `http://localhost:5000/staff/receptionist/${id}`,
+                `${import.meta.env.VITE_API_URL}/staff/receptionist/${id}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`
@@ -395,7 +377,7 @@ function Admin() {
 
         try {
             const response = await axios.post(
-                "http://localhost:5000/booking/receptionist",
+                `${import.meta.env.VITE_API_URL}/booking/receptionist`,
                 {
                     customer_email: customerEmail,
                     room_id: bookingRoom,

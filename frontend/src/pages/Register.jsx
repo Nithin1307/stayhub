@@ -15,7 +15,7 @@ function Register() {
 
         try {
             const response = await axios.post(
-                "http://localhost:5000/user/register",
+                `${import.meta.env.VITE_API_URL}/user/register`,
                 {
                     name,
                     email,
@@ -25,7 +25,7 @@ function Register() {
             );
 
             const loginResponse = await axios.post(
-                "http://localhost:5000/user/login",
+                `${import.meta.env.VITE_API_URL}/user/login`,
                 {
                     email,
                     password

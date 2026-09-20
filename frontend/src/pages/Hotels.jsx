@@ -9,7 +9,7 @@ function Hotels() {
     const [loading, setLoading] = useState(true);
     const getHotels = async () => {
         try {
-            const response = await axios.get("http://localhost:5000/hotel");
+            const response = await axios.get(`${import.meta.env.VITE_API_URL}/hotel`);
             setHotels(response.data);
         } catch (error) {
             console.log(error);
