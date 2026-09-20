@@ -14,7 +14,6 @@ const staffRoutes = require("./routes/staff");
 
 const app = express();
 
-const cors = require("cors");
 app.use(cors({
     origin: [
         "http://localhost:5173",
